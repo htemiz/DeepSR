@@ -1,0 +1,43 @@
+
+
+settings = \
+    {
+        'augment':[],
+        'modelname':basename(__file__).split('.')[0],
+        'backend': 'tensorflow',
+        'batchsize':256,
+        'channels':1,
+        'colormode':'RGB',
+        'crop': 0,
+        'crop_test': 6,
+        'decay':1e-6,
+        'decimation': 'bicubic',
+        'earlystoppingpatience' : 20,
+        'epoch':100,
+        'inputsize':16,
+        'interp_compare': '',
+        'interp_up': 'bicubic',
+        'lrateplateaupatience': 10,
+        'lrateplateaufactor' : 0.5,
+        'metrics': 'ALL',
+        'minimumlrate' : 1e-7,
+        'noise':'',
+        'normalization':['divide', 255.0],
+        'normalizeback': False,
+        'normalizeground':False,'lrate':0.001,
+        'outputdir':'',
+        'saveimages': False,
+        'scale':2,
+        'seed': 19,
+        'shuffle' : True,
+        'stride':5,
+        'target_channels': 1,
+        'target_cmode' : 'RGB',
+        'traindir': r'',
+        'testpath' : [r''],
+        'upscaleimage': False,
+        'valdir': r'D:\calismalarim\datasets\US\UltrasoundCases\USCases Database\val',
+        'weightpath':'',
+        'workingdir': abspath(dirname(__file__))
+    }
+
