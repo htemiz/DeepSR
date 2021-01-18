@@ -17,6 +17,7 @@ Each step in the workflow of SR pipeline, such as pre-processing, augmentation, 
 
 <p align='center'>
 <img align='center' src="https://github.com/htemiz/DeepSR/blob/master/DeepSR/docs/conceptual scheme.png" style="width:160px,height=100px;text-aiign:center;display:blcok;"/>
+<span>Conceptual scheme of DeepSR for Super Sesolution with Deep Learning
  </p>
 
 
