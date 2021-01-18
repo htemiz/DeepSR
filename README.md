@@ -147,10 +147,7 @@ import keras.backend as K
 from os.path import  dirname, abspath, basename
 from keras.optimizers import Adam, SGD, RMSprop
 
-
 eps = 1.1e-6
-
-
 
 settings = \  
     {  
@@ -189,7 +186,6 @@ settings = \
         'workingdir': r'',  # path to the working directory. All outputs to be produced within this directory  
         'weightpath': '',  # path to model weights either for training to start with, or for test.  
     }  
-
 
 
 def build_model(self, testmode=False):
