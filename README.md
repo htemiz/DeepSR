@@ -12,6 +12,16 @@ Each step in the workflow of SR pipeline, such as pre-processing, augmentation, 
 </p>
 
 </br>
+
+
+
+<p align='center'>
+<img align='center' src="https://github.com/htemiz/DeepSR/blob/master/DeepSR/docs/conceptual scheme.png" style="width:160px,height=100px;text-aiign:center;display:blcok;"/>
+ </p>
+
+
+
+
 <p align='justify'>
 DeepSR is designed in such a way that one can interact with it from the command prompt, or use it as class object by importing it into another program. It is mainly tailored for using it with scripts from command prompt by providing many ready-to-use functionalities at hand. Hence, multiple tasks/experiments can be performed successively by using batch scripts. However, addition to command prompt interface, it is ready also to do the same tasks by calling it as a class object from another Python program. Addition to this, one can develop his/her own programs or can write Python scripts performing subject specific tasks at his/her disposal. Even more, he/she can add new features to the program to contribute this effort for making it better.
 </p>
