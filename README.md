@@ -139,8 +139,8 @@ Let us train it and do some works:
     --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 100 --batchsize 256 --backend tensorflow 
     --layeroutput --layerweights 
 
-| command argument | Explanation  |
-| :-  | :-  |
+| Argument | Explanation  |
+| :------  | :-----  |
 | --train | Train the model with given hyper-parameter values |
 | --test | Evaluate the performance of the model with given measures after training finished |
 | --plot | Plot the moodel's architecture as an image file |
