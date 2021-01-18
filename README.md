@@ -134,7 +134,10 @@ repeating blocks. As typical, hyper-parameter values are given in the dictionary
 
 Let us train it and do some works:
 
-    python –m DeepSR.DeepSR --train --test --plot --saveimages --modelfile 'sample_model.py’ --inputsize 25 --metrics PSNR SSIM MAD --scale 2 --gpu 1 --shuffle --shutdown  --normalize minmax -1 1 --stride 12 --saveimages --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 50 --batchsize 128 --backend tensorflow --layeroutput --layerweights 
+    python –m DeepSR.DeepSR --train --test --plot --saveimages --modelfile 'DECUSR.py’ --inputsize 25 
+    --metrics PSNR SSIM MAD --scale 2 --gpu 1 --shuffle --shutdown  --normalize minmax -1 1 --stride 12
+     --saveimages --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 50 --batchsize 128 --backend tensorflow 
+     --layeroutput --layerweights 
 
 
 
