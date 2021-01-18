@@ -171,7 +171,7 @@ settings = \
         'lrfactor': 0.5,  # Learning rate plateau factor. The ratio of decrease in learning rate value.  
         'minimumlrate': 1e-7,  # learning rate can be reduced down to a maximum of this value.  
         'modelname': basename(__file__).split('.')[0],  # modelname is the same as the name of this file.  
-        'metrics': ['PSNR', 'SSIM'],  # the model name is the same as the name of this file.  
+        'metrics': ['PSNR', 'SSIM'],  # evaluation metrics PSNR and SSIM.  
         'normalization': ['divide', '255.0'],  # normalize images by dividing 255.0  
         'outputdir': '',  # sub directories automatically created.  
         'scale': 2,  # magnification factor is 4.  
@@ -317,7 +317,7 @@ settings = \
         'lrfactor': 0.5,  # Learning rate plateau factor. The ratio of decrease in learning rate value.  
         'minimumlrate': 1e-7,  # learning rate can be reduced down to a maximum of this value.  
         'modelname': basename(__file__).split('.')[0],  # modelname is the same as the name of this file.  
-        'metrics': ['PSNR', 'SSIM'],  # the model name is the same as the name of this file.  
+        'metrics': ['PSNR', 'SSIM'],  # Evaluation metrics are PSNR and SSIM.  
         'normalization': ['standard', 53.28, 40.732],  # apply standardization to input images (mean, std)  
         'outputdir': '',  # sub directories automatically created.  
         'scale': 4,  # magnification factor is 4.  
