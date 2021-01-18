@@ -139,6 +139,7 @@ Let us train it and do some works:
      --saveimages --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 100 --batchsize 256 
      --backend tensorflow --layeroutput --layerweights 
 
+| |  |
 | - | -|
 | --metrics | Use PSNR SSIM and MAD measures for the evaluation |
 
