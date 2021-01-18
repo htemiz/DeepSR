@@ -128,8 +128,8 @@ a trained model by saving the outputs (images) of each layers in image files.
 
 
 
-### Running DECUSR Model With Scripting Interface (command prompt) 
-
+### Example for Running DECUSR Model With Scripting Interface (command prompt) 
+Below is the DECUSR model designed by me for Ultrasound Super Resolution. It is a special kind of CNN with densely connected repeating blocks. 
 
 ```python
 # DECUSR.py file
