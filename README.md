@@ -132,6 +132,9 @@ a trained model by saving the outputs (images) of each layers in image files.
 
 
 ```python
+# DECUSR.py file
+# DECUSR model with 4 Repeating Blocks for Scaling Factor of 2.
+
 from keras import metrics
 from keras import losses
 from keras.models import Model
