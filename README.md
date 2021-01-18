@@ -139,10 +139,15 @@ Let us train it and do some works:
      --saveimages --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 100 --batchsize 256 
      --backend tensorflow --layeroutput --layerweights 
 
-| |  |
+| command argument | Meaning  |
 | - | -|
+| --train | Train the model with given hyper-parameter values |
+| --test | Evaluate the performance of the model with given measures after training finished |
+| --plot | Plot the moodel's architecture as an image file |
+| --modelfile 'DECUSR.py' | Use DECUSR.py file for the DL model with its hyper-parameters |
+| --inputsize 25 | Image patches taken from training images have 25x25 pixel size. This overwrites the value given in the 'settings' dictionary | 
 | --metrics | Use PSNR SSIM and MAD measures for the evaluation |
-
+|
 ```python
 # DECUSR.py file
 # DECUSR model with 4 Repeating Blocks for Scaling Factor of 2.
