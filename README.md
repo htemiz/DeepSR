@@ -140,7 +140,7 @@ Let us train it and do some works:
     --layeroutput --layerweights 
 
 | command argument | Explanation  |
-| :- | :- |
+| :-  | :-  |
 | --train | Train the model with given hyper-parameter values |
 | --test | Evaluate the performance of the model with given measures after training finished |
 | --plot | Plot the moodel's architecture as an image file |
