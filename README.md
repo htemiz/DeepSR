@@ -162,7 +162,10 @@ Let us train it and do some works:
 | --layeroutput | Write in files the outputs of all layers of the model. | 
 | --layerweights | Write in files the weights of the layers. |
 
-Please note that command arguments overwrites the hyper-parameter values in the 'settings'.
+Please note that command arguments overwrites the hyper-parameter values in the 'settings'. DeepSR automatize some important
+features. For example, the activation fucntions in the layers are defined as 'activation=self.activation', which means that it
+can be dynamically set by command argument or in the dictionary 'settings' (for example, in command prompt, '--activation "tanh"').
+ In this way, activations can be changed with dynamically scripts in the implementation stage. 
 
 ```python
 # DECUSR.py file
