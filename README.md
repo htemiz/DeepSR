@@ -126,6 +126,142 @@ a trained model by saving the outputs (images) of each layers in image files.
 
     python DeepSR.py --modelfile “sample_model_2.py” -–test --layeroutputs --saveimages
 
+
+
+### Running DECUSR Model With Scripting Interface (command prompt) 
+
+
+```python
+from keras import metrics
+from keras import losses
+from keras.models import Model
+from keras.layers import Input, merge, ZeroPadding2D,  LocallyConnected2D, Conv2DTranspose, concatenate, BatchNormalization
+from keras.layers.core import Dense, Dropout, Activation
+from keras.layers.convolutional import Conv2D, UpSampling2D
+from keras.layers.pooling import AveragePooling2D, GlobalAveragePooling2D, MaxPooling2D
+from keras.layers.normalization import BatchNormalization
+import keras.backend as K
+from os.path import  dirname, abspath, basename
+from keras.optimizers import Adam, SGD, RMSprop
+
+
+eps = 1.1e-6
+
+
+
+settings = \  
+    {  
+        'activation': 'relu', # activation function for layers is relu.
+        'augment': [90, 180],  # can be any combination of [90,180,270, 'flipud', 'fliplr', 'flipudlr' ], or []  
+        'backend': 'tensorflow', # keras is going to use theano framework in processing.  
+        'batchsize':128,  # number of batches  
+        'channels': 1,  # color channels to be used in training . Only one channel in this case  
+        'colormode': 'RGB',  # the color space is RGB. 'YCbCr' or 'RGB'  
+        'crop': 0,  # do not crop from borders of images.  
+        'crop_test': 0,  # do not crop from borders of images in tests.  
+        'decay': 1e-6,  # learning rate decay.
+        'decimation': 'bicubic', # can be one of 'bicubic', 'bilinear', 'lanczos', 'nearest'  
+        'espatience': 5,  # Early stopping patience. Stop after 5 epochs if the performance of the model has not improved.  
+        'epoch': 50,  # train the model for total 50 passes on training data.
+        'gpu': 0,1, # use the first and second GPUs in the computing system.  
+        'inputsize': 16, # size of input image patches is 33x33.  
+        'lactivation': 'prelu', # activation function of the last layer in the model is prelu.  
+        'lrate': 0.001, # learning rate
+        'lrpatience': 3,  # The learning rate plateau patience. The number of epochs to wait before reducing the learning rate.  
+        'lrfactor': 0.5,  # Learning rate plateau factor. The ratio of decrease in learning rate value.  
+        'minimumlrate': 1e-7,  # learning rate can be reduced down to a maximum of this value.  
+        'modelname': basename(__file__).split('.')[0],  # modelname is the same as the name of this file.  
+        'metrics': ['PSNR', 'SSIM'],  # the model name is the same as the name of this file.  
+        'normalization': ['divide', '255.0'],  # normalize images by dividing 255.0  
+        'outputdir': '',  # sub directories automatically created.  
+        'scale': 2,  # magnification factor is 4.  
+        'shuffle': True, # shuffle training images at the begining of each epoch.
+        'stride': 19,  # give a step of 11 pixels apart between patches while cropping them from images for training.  
+        'target_channels': 1,  # color channels to be used in tests . Only one channel in this case  
+        'target_cmode': 'RGB',  # 'YCbCr' or 'RGB'  
+        'testpath': [r'D:\test_images'],  # path to the folder in which test images are. Can be more than one.  
+        'traindir': r'D:\training_images',  # path to the folder in which training images are.  
+        'upscaleimage': False,  # The model is going to upscale the given low resolution image.  
+        'valdir': r'',  # path to the folder in which validation images are.  
+        'workingdir': r'',  # path to the working directory. All outputs to be produced within this directory  
+        'weightpath': '',  # path to model weights either for training to start with, or for test.  
+    }  
+
+
+
+def build_model(self, testmode=False):
+    if testmode:
+        input_size = None
+    else:
+        input_size = self.inputsize
+
+    input_shape = (input_size, input_size, self.channels)
+
+    main_input = Input(shape=input_shape, name='main_input')
+
+    pre_block = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(main_input)
+    pre_block = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(pre_block)
+    pre_block = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(pre_block)
+    pre_block = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(pre_block)
+
+    upsampler_LC = UpSampling2D(self.scale, name='upsampler_locally_connected')(pre_block)
+    upsampler_direct = UpSampling2D(self.scale)(main_input)
+
+    # REPEATING BLOCKS
+
+    block3 = concatenate([upsampler_LC, upsampler_direct])
+    block3 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block3)
+    block3 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block3)
+    block3 = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block3)
+
+    block4 = concatenate([upsampler_LC, upsampler_direct, block3])
+    block4 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block4)
+    block4 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block4)
+    block4 = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block4)
+
+    block5 = concatenate([upsampler_LC, upsampler_direct, block3, block4])
+    block5 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block5)
+    block5 = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block5)
+    block5 = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(block5)
+
+    fourth = concatenate([upsampler_LC, upsampler_direct, block3, block4, block5])
+    fourth = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
+    fourth = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
+    fourth = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
+
+    final = Conv2D(self.channels, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
+
+    model = Model(main_input, outputs=final)
+    model.compile(Adam(self.lrate, self.decay), loss=losses.mean_squared_error)
+
+    # model.summary()
+
+    return model
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 More detailed examples and explanation are given in the program manual.  
 
 ### Using DeepSR as Class Object
