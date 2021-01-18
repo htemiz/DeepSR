@@ -129,7 +129,14 @@ a trained model by saving the outputs (images) of each layers in image files.
 
 
 ### Example for Running DECUSR Model With Scripting Interface (command prompt) 
-Below is the DECUSR model designed by me for Ultrasound Super Resolution. It is a special kind of CNN with densely connected repeating blocks. 
+Below is the DECUSR model designed by me for Ultrasound Super Resolution. It is a special kind of CNN with densely connected 
+repeating blocks. As typical, hyper-parameter values are given in the dictionary 'settings'. The model is defined below this dictionary.
+
+Let us train it and do some works:
+
+    python –m DeepSR.DeepSR --train --test --plot --saveimages --modelfile 'sample_model.py’ --inputsize 25 --metrics PSNR SSIM MAD --scale 2 --gpu 1 --shuffle --shutdown  --normalize minmax -1 1 --stride 12 --saveimages --noise 0.0 0.1 --lrpatience 3 --espatience 5 --epoch 50 --batchsize 128 --backend tensorflow --layeroutput --layerweights 
+
+
 
 ```python
 # DECUSR.py file
@@ -228,7 +235,7 @@ def build_model(self, testmode=False):
     fourth = Conv2D(16, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
     fourth = Conv2D(16, (1, 1), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
 
-    final = Conv2D(self.channels, (3, 3), kernel_initializer='glorot_uniform', activation=self.activation, padding='same')(fourth)
+    final = Conv2D(self.channels, (3, 3), kernel_initializer='glorot_uniform', activation=self.lactivation, padding='same')(fourth)
 
     model = Model(main_input, outputs=final)
     model.compile(Adam(self.lrate, self.decay), loss=losses.mean_squared_error)
