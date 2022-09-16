@@ -6,7 +6,7 @@ with Deep Learning architectures based on Keras framework.
 
 The main goal of this framework is to empower users/researchers to focus on their studies
 while pursuin g successful Deep Learning algorithms for the task of Super Resolution,
-saving them from the workloads of programming, implementing and testing. 
+saving them from the workloads of programming, implementing and testing.
 
 It offers several ways to use the framework, such as using the command line, using the DeepSR
 object in another program, or using batch files to automate successive multiple jobs.
