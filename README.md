@@ -151,7 +151,7 @@ Let us train it and do some works:
 | --scale 3 | Scale factor is 3. Overwrites the value 2 in the 'settings'. |
 | --gpu 1 | Do all tasks with only second GPU, if there are multiple GPUs. (order is zero based).|
 | --shuffle | Shuffle training images before starting each epoch. |
-| --nomralize minmax -1 1 | Normalize images between -1 and 1. |
+| --normalize minmax -1 1 | Normalize images between -1 and 1. |
 | --stride 12 | Give 12 pixel apart for extracting image patches from training images. |
 | --noise 0.0 0.1 | Add Gaussian noise with zero mean and 0.1 std on images berfore passing to the model. |
 | --lrpatience 3 | Reduce learning rate if there is no improvement on the performance for 3 epochs. |
