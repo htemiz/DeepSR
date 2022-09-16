@@ -1,9 +1,9 @@
-## <p align='center'> A Python Tool for Obtaining and Automating Super Resolution with Deep Learning Algorithms </p>
+## <p align='center'> A Python Enviroment for Super Resolution with Deep Learning Algorithms </p>
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4310169.svg)](https://doi.org/10.5281/zenodo.4310169)
 
 <p align='justify'>
-DeepSR is an open source progam that eases the entire processes of the Super Resolution (SR) problem in terms of Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
+DeepSR is an open source progam that provides a common environment for the implementation of Super Resolution (SR) with Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
 </p>
 
 <br/>
