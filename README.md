@@ -3,7 +3,7 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4310169.svg)](https://doi.org/10.5281/zenodo.4310169)
 
 <p align='justify'>
-DeepSR is an open source progam that provides a common environment for the implementation of Super Resolution (SR) with Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
+DeepSR is an open source program that provides a common environment for the implementation of Super Resolution (SR) with Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
 </p>
 
 <br/>
@@ -17,7 +17,7 @@ Each step in the workflow of SR pipeline, such as pre-processing, augmentation, 
 
 <p align='center'>
 <img align='center' src="https://github.com/htemiz/DeepSR/blob/master/DeepSR/docs/conceptual scheme.png" style="width:160px,height=100px;text-aiign:center;display:blcok;"/>
-<span>Conceptual scheme of DeepSR for Super Sesolution with Deep Learning
+<span>Conceptual scheme of DeepSR for Super Resolution with Deep Learning
  </p>
 
 
@@ -27,7 +27,7 @@ Each step in the workflow of SR pipeline, such as pre-processing, augmentation, 
 DeepSR is designed in such a way that one can interact with it from the command prompt, or use it as class object by importing it into another program. It is mainly tailored for using it with scripts from command prompt by providing many ready-to-use functionalities at hand. Hence, multiple tasks/experiments can be performed successively by using batch scripts. However, addition to command prompt interface, it is ready also to do the same tasks by calling it as a class object from another Python program. Addition to this, one can develop his/her own programs or can write Python scripts performing subject specific tasks at his/her disposal. Even more, he/she can add new features to the program to contribute this effort for making it better.
 </p>
  
-  In order to construct DL models, DeepSR utilizes [Kears](https://www.keras.io). Keras is capable of running on top of the
+  In order to construct DL models, DeepSR utilizes [Keras](https://www.keras.io). Keras is capable of running on top of the
   following prominent DL frameworks: 
   
   [TensorFlow](https://www.tensorflow.org), [Theano](http://deeplearning.net/software/theano/) and [CNTK](https://github.com/microsoft/CNTK)
