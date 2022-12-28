@@ -2,6 +2,8 @@
 
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4310169.svg)](https://doi.org/10.5281/zenodo.4310169)
 
+To cite this work [Temiz, H. (2023). DeepSR: A deep learning tool for image super resolution. SoftwareX, 21, 101261. DOI:https://doi.org/10.1016/j.softx.2022.101261](https://www.sciencedirect.com/science/article/pii/S2352711022001790)
+
 <p align='justify'>
 DeepSR is an open source program that provides a common environment for the implementation of Super Resolution (SR) with Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
 </p>
