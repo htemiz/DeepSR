@@ -5,7 +5,7 @@
 
 
 To cite this work:
-[![DOI:10.1016/j.softx.2022.101261](https://img.shields.io/badge/DOI-10.1016/j.softx.2022.101261-%3CCOLOR%3E.svg)](https://img.shields.io/badge/DOI-10.1016/j.softx.2022.101261-%3CCOLOR%3E.svg)
+[![DOI:10.1016/j.softx.2022.101261](https://img.shields.io/badge/DOI-10.1016/j.softx.2022.101261-%3CCOLOR%3E.svg)]([https://img.shields.io/badge/DOI-10.1016/j.softx.2022.101261-%3CCOLOR%3E.svg](https://www.sciencedirect.com/science/article/pii/S2352711022001790))
 
 
 To cite this work:
