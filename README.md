@@ -4,7 +4,10 @@
 """
 
 To cite this work:
-[Temiz, H. (2023). DeepSR: A deep learning tool for image super resolution. SoftwareX, 21, 101261. ![DOI:10.1016/j.softx.2022.101261]](https://www.sciencedirect.com/science/article/pii/S2352711022001790)
+[![DOI:10.1016/j.softx.2022.101261](https://www.sciencedirect.com/science/article/pii/S2352711022001790)](https://doi.org/10.1016/j.softx.2022.101261)
+
+
+Temiz, H. (2023). DeepSR: A deep learning tool for image super resolution. SoftwareX, 21, 101261. ]
 
 [Temiz, H. (2023). DeepSR: A deep learning tool for image super resolution. SoftwareX, 21, 101261. ![DOI:https://doi.org/10.1016/j.softx.2022.101261]](https://www.sciencedirect.com/science/article/pii/S2352711022001790)
 
