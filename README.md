@@ -9,7 +9,6 @@ To cite this work:
 <p align='justify'>
 DeepSR is an open source program that provides a common environment for the implementation of Super Resolution (SR) with Deep Learning (DL) algorithms. DeepSR makes it very simple to design and build DL models. Thus, it empowers researchers to focus on their studies by saving them from struggling with time consuming and challenging workloads while pursuing successful DL algorithms for the task of SR.
 </p>
-
 <br/>
  <p align='justify'>
 Each step in the workflow of SR pipeline, such as pre-processing, augmentation, normalization, training, post-processing, and test are governed by this framework in such a simple, easy and efficient way that there would remain at most very small amount of work for researchers to accomplish their experiments. In this way, DeepSR ensures a way of fast prototyping and providing a basis for researchers and/or developers eliminating the need of commencing whole job from the scratch, or the need of adapting existing program(s) to new designs and implementations. 
