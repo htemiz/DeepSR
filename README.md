@@ -5,7 +5,7 @@
 
 
 To cite this work:
-[![DOI:10.1016/j.softx.2022.101261]([https://www.sciencedirect.com/science/article/pii/S2352711022001790](https://ars.els-cdn.com/content/image/1-s2.0-S2352711022X00046-cov150h.gif))](https://doi.org/10.1016/j.softx.2022.101261)
+[DOI:10.1016/j.softx.2022.101261](https://img.shields.io/badge/DOI-10.1016/j.softx.2022.101261-%3CCOLOR%3E.svg)
 
 
 To cite this work:
