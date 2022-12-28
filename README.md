@@ -3,6 +3,11 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.4310169.svg)](https://doi.org/10.5281/zenodo.4310169)
 """
 
+
+To cite this work:
+[![DOI:10.1016/j.softx.2022.101261]([https://www.sciencedirect.com/science/article/pii/S2352711022001790](https://ars.els-cdn.com/content/image/1-s2.0-S2352711022X00046-cov150h.gif))](https://doi.org/10.1016/j.softx.2022.101261)
+
+
 To cite this work:
 [![DOI:10.1016/j.softx.2022.101261](https://www.sciencedirect.com/science/article/pii/S2352711022001790)](https://doi.org/10.1016/j.softx.2022.101261)
 
