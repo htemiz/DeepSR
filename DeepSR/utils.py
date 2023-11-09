@@ -33,8 +33,8 @@ from tqdm import tqdm
 
 # measures
 from sporco.metric import snr, bsnr, pamse, gmsd, isnr
-from skimage.measure import compare_psnr, compare_ssim as SSIM
-from skimage.measure import compare_mse, compare_nrmse
+from skimage.metrics import peak_signal_noise_ratio as compare_psnr, structural_similarity as SSIM
+from skimage.metrics import mean_squared_error as compare_mse, normalized_root_mse as compare_nrmse
 import sewar
 from skvideo.measure import  mad, niqe #, brisque , msssim, strred
 
