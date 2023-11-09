@@ -7,7 +7,7 @@ and for image processing.
 Developed  by
         Hakan Temiz             htemiz@artvin.edu.tr
 
-    version : 0.0.51
+    version : 0.0.81
     history :
 
 """
@@ -334,7 +334,7 @@ def measure_images(image_path, scale=2, metrics= "ALL", channels= 1, decimation=
                 img = Image.fromarray(im_b, mode=mode)
 
                 org_shape = (img.size[0], img.size[1])
-                new_shape = np.divide(org_shape, scale).astype(np.int)
+                new_shape = np.divide(org_shape, scale).astype(int)
 
                 im_m = img.resize(new_shape, resample=func[method])
                 im_m = np.array(im_m)
@@ -1205,7 +1205,7 @@ def preprocess_image(img,  scale=2, pad=0, channels=1, upscale=False, crop_remai
 
     org_shape = (img.size[0], img.size[1])
 
-    new_shape = np.divide(org_shape, scale).astype(np.int)
+    new_shape = np.divide(org_shape, scale).astype(int)
 
     img = img.resize(new_shape, resample=func[decimation])
 
