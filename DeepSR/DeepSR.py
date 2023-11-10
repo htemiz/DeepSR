@@ -1345,13 +1345,13 @@ class DeepSR(object):
             self.lrfactor = self.lrateplateaufactor
 
         if hasattr(self, "espatience") and self.espatience is not None:
-            callbacks.append(EarlyStopping(monitor=loss, patience=self.earlystoppingpatience, verbose=1))
+            callbacks.append(EarlyStopping(monitor=loss, patience=self.espatience, verbose=1))
 
-        if hasattr(self, "lrpatience") and hasattr("lrfactor") and \
+        if hasattr(self, "lrpatience") and hasattr(self, "lrfactor") and \
                 self.lrpatience is not None and self.lrfactor is not None:
 
-            callbacks.append(ReduceLROnPlateau(monitor=loss, factor=self.lrateplateaufactor,
-                                               patience=self.earlystoppingpatience,
+            callbacks.append(ReduceLROnPlateau(monitor=loss, factor=self.lrfactor,
+                                               patience=self.lrpatience,
                                                verbose=1, mode='min', min_lr=self.minimumlrate))
 
         # append user-defined callbacks
@@ -2258,7 +2258,7 @@ class DeepSR(object):
         print("Batch generator starting...")
         start_time = time.time()
 
-        self.history = self.model.fit_generator(
+        self.history = self.model.fit(
                                  self.generate_batch_on_fly(self.traindir, shuffle=self.shuffle),
                 validation_data= valData,
                 epochs =self.epoch, workers=1,max_queue_size=1, callbacks = self.prepare_callbacks(),
