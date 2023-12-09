@@ -19,7 +19,7 @@ accomplish their experiments.
 Developed  by
         Hakan Temiz             htemiz@artvin.edu.tr
 
-Version : 0.0.51
+Version : 0.0.120
 History :
 
 """
@@ -36,49 +36,33 @@ else:
     from args import getArgs
 
 
-ARGS = getArgs()
 
+ARGS = getArgs()
+from tensorflow.config import list_physical_devices, set_visible_devices
+from tensorflow.config.experimental import set_memory_growth
 
 if ARGS['gpu'] is not None:
-    from tensorflow.config import list_physical_devices, set_visible_devices
-
-    # config = tf.ConfigProto(device_count={'GPU': 1})
     try:
-        physical_devices = list_physical_devices('GPU')
+        # os.environ["CUDA_DEVICE_ORDER"] =  busses[int(ARGS['gpu'])] #ARGS['gpu'] #
+        # os.environ["CUDA_VISIBLE_DEVICES"] = ARGS['gpu']
+        physical_devices = list_physical_devices(device_type='GPU')
+        for _gpu in ARGS['gpu'].split(','):
+            set_memory_growth(physical_devices[int(_gpu)], True)
 
-        # environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
-        if len(physical_devices) >1:
-
-            if ARGS['gpu'] == '0':
-                # environ["CUDA_VISIBLE_DEVICES"]="0"
-                # config.gpu_options.visible_device_list = '0'
-                set_visible_devices(physical_devices[0], 'GPU')
-                print('GPU (0) ALLOCATED FOR THIS JOB')
-
-            elif ARGS['gpu'] == '1':
-                # environ["CUDA_VISIBLE_DEVICES"] = "1"
-                # config.gpu_options.visible_device_list = '1'
-                set_visible_devices(physical_devices[1], 'GPU')
-                print('GPU : (1) ALLOCATED FOR THIS JOB')
-
-            elif ARGS['gpu'] == '2':
-                # environ["CUDA_VISIBLE_DEVICES"] = "2"
-                set_visible_devices(physical_devices[2], 'GPU')
-                print('GPU : (2) ALLOCATED FOR THIS JOB')
-
-            elif ARGS['gpu'] == '3':
-                # environ["CUDA_VISIBLE_DEVICES"] = "3"
-                set_visible_devices(physical_devices[3], 'GPU')
-                print('GPU : (3) ALLOCATED FOR THIS JOB')
-
-            elif ARGS['gpu'].lower() == 'all':
-                # environ["CUDA_VISIBLE_DEVICES"] = "3"
+        if len(physical_devices) > 1:
+            # print('\nList of Physical GPUs:\n', physical_devices,'\n')
+            if ARGS['gpu'].lower() == 'all':
                 set_visible_devices(physical_devices, 'GPU')
-                print('GPU : ALL GPUS ALLOCATED FOR THIS JOB')
+                print('ALL GPUS ALLOCATED FOR THIS JOB')
+            else:
+                print('GPU(s) :' + ARGS['gpu'] + ' ALLOCATED FOR THIS JOB')
+                for _gpu in ARGS['gpu'].split(','):
+                    set_visible_devices(physical_devices[int(_gpu)], 'GPU')
 
-    except:
+    except Exception as e:
+        print('An error occured while listing physical GPUs')
         del physical_devices
-
+        print('Exception:\n', e)
 
 
 from os import environ
@@ -133,8 +117,9 @@ from skimage.io import imread, imsave
 from keras.callbacks import CSVLogger, EarlyStopping, ReduceLROnPlateau, ModelCheckpoint
 from keras.backend import image_data_format
 from keras.layers import Activation
-from keras.layers.advanced_activations import LeakyReLU, PReLU
+# from keras.layers.advanced_activations import LeakyReLU, PReLU
 
+from tensorflow import device as tf_device
 
 image_extentions = ["*.bmp", "*.BMP", "*.jpg", "*.JPG", "*.png", "*.PNG", "*.jpeg", "*.JPEG", "*.TIFF", "*.tiff", '*.mat']
 
@@ -145,14 +130,37 @@ class DeepSR(object):
         """ takes arguments via a dictionary object and generate class members
 
         """
-        self.__version__ = '0.0.42'
+        self.__version__ = '0.0.115'
 
         if args is None:
             return
         else:
             self.set_settings(args)
 
-
+        # self.set_gpu()
+    #
+    # def set_gpu(self,):
+    #
+    #     if hasattr(self, 'gpu'):
+    #         # config = tf.ConfigProto(device_count={'GPU': 1})
+    #         try:
+    #             physical_devices = list_physical_devices(device_type='GPU')
+    #             self.physical_devices = physical_devices
+    #             print('PHYSICAL GPUS: ', self.physical_devices)
+    #
+    #             if len(physical_devices) > 1:
+    #
+    #                 if ARGS['gpu'].lower() == 'all':
+    #                     set_visible_devices(physical_devices, 'GPU')
+    #                     print('ALL GPUS ALLOCATED FOR THIS JOB')
+    #                 else:
+    #                     # print('GPU :' + ARGS['gpu'] + ' ALLOCATED FOR THIS JOB')
+    #                     set_visible_devices(physical_devices[int(ARGS['gpu'])], 'GPU')
+    #
+    #         except Exception as e:
+    #             print('An error occured while listing physical GPUs')
+    #             del physical_devices
+    #             print('Exception:\n', e)
 
     def apply_activation(self, model, activation="relu", name=None):
 
@@ -202,7 +210,6 @@ class DeepSR(object):
         print(total_mean, total_images)
         print('Mean : ', total_mean / total_images)
         return total_mean / total_images
-
 
     def get_number_of_samples(self, imagedir):
         """
@@ -1623,6 +1630,10 @@ class DeepSR(object):
         self.custom_test = None # No custom test function yet, defined by user
         self.user_callbacks = None
 
+        if args['gpu'] is not None:
+            self.gpu = args['gpu']
+            setattr(self, 'gpu', args['gpu'])
+
         # parameters passed via command line has priority to the parameters in model file
         # so override the parameters that prohibited in command line
         for key in args.keys():
@@ -2142,44 +2153,57 @@ class DeepSR(object):
         return psnr
 
 
-    def train_with_h5file(self, weightpath = None, plot=False):
-        """
-        Training procedure with images in a .h5 file.
-        :param weightpath: Path to model weight.
-        :param plot:
-        :return:
-        """
-
-        self.model = self.build_model(testmode=False)
-        if not exists(self.datafile): # check if training data exists
-            self.prepare_dataset(self.traindir, self.datafile)
-
-        h5f = h5py.File(self.datafile, 'r')
-        X = h5f['input']
-        y = h5f['label']
-
-        # load weight
-        if  weightpath != None and weightpath !="":
-
-            if isdir(weightpath):
-                print("Given weight file path is not a file path. Model will run without loading weight")
-
-            else:
-                self.model.load_weights(weightpath)
-
-        print(self.model.summary())
-
-        print("Training starting...")
-        start_time = time.time()
-
-        self.history = self.model.fit(X, y, validation_split=0.1, batch_size=self.batchsize,
-                                      epochs=self.epoch, verbose=0, shuffle=self.shuffle,
-                                      callbacks=self.prepare_callbacks())
-        self.elapsed_time = time.time() - start_time
-
-        self.write_summary()
-
-        print("Training has taken %.3f seconds." % (self.elapsed_time))
+    # def train_with_h5file(self, weightpath = None, plot=False):
+    #     """
+    #     Training procedure with images in a .h5 file.
+    #     :param weightpath: Path to model weight.
+    #     :param plot:
+    #     :return:
+    #     """
+    #
+    #     self.model = self.build_model(testmode=False)
+    #     if not exists(self.datafile): # check if training data exists
+    #         self.prepare_dataset(self.traindir, self.datafile)
+    #
+    #     h5f = h5py.File(self.datafile, 'r')
+    #     X = h5f['input']
+    #     y = h5f['label']
+    #
+    #     # load weight
+    #     if  weightpath != None and weightpath !="":
+    #
+    #         if isdir(weightpath):
+    #             print("Given weight file path is not a file path. Model will run without loading weight")
+    #
+    #         else:
+    #             self.model.load_weights(weightpath)
+    #
+    #     print(self.model.summary())
+    #
+    #     print("Training starting...")
+    #     start_time = time.time()
+    #
+    #     print("\n\nSELF GPU", self.gpu, '\n\n')
+    #
+    #     if hasattr(self, 'gpu'):
+    #         if self.gpu is not None:
+    #             if self.gpu != 'all':
+    #                 print(f'\nUsing GPU ({self.gpu}) for Training\n')
+    #                 with  tf.device(f'/gpu:{self.gpu}'):
+    #                     self.history = self.model.fit(X, y, validation_split=0.1, batch_size=self.batchsize,
+    #                                                   epochs=self.epoch, verbose=0, shuffle=self.shuffle,
+    #                                                   callbacks=self.prepare_callbacks())
+    #
+    #
+    #     else:
+    #         self.history = self.model.fit(X, y, validation_split=0.1, batch_size=self.batchsize,
+    #                                       epochs=self.epoch, verbose=0, shuffle=self.shuffle,
+    #                                       callbacks=self.prepare_callbacks())
+    #     self.elapsed_time = time.time() - start_time
+    #
+    #     self.write_summary()
+    #
+    #     print("Training has taken %.3f seconds." % (self.elapsed_time))
 
 
     def train_on_batch(self, weihgtpath=None, plot=False):
@@ -2199,8 +2223,6 @@ class DeepSR(object):
         :param plot:
         :return:
         """
-
-        print("\n[START TRAINING]")
 
         self.model = self.build_model(testmode=False)
 
@@ -2257,6 +2279,10 @@ class DeepSR(object):
 
         print("Batch generator starting...")
         start_time = time.time()
+
+
+
+        print("\n\nSELF GPU", self.gpu, '\n\n')
 
         self.history = self.model.fit(
                                  self.generate_batch_on_fly(self.traindir, shuffle=self.shuffle),
@@ -2385,6 +2411,7 @@ def start():
         sr.train()
 
     if ARGS['test'] is not None and ARGS['test']:
+        sr.mode = 'test'
         sr.test()
 
     if ARGS['predict'] is not None and ARGS['predict']:
